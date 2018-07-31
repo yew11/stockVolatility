@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Web Crawler</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <style>
+      body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #2889ba;
+      }
+      p {
+      font-family: sans-serif;
+      }
+      footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 50px;
+      width: 100%;
+      background-color: #a8afc1;
+      color: white;
+      text-align: center;
+      }
+   </style>
+   <body>
+      <nav class="navbar navbar-default">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>                        
+               </button>
+               <a class="navbar-brand">Our Team</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="https://www.linkedin.com/in/yiting-cai-c/">Yiting Cai</a></li>
+                  <li><a href="https://www.linkedin.com/in/minglu-sun-20b71b136/">Minglu Sun</a></li>
+                  <li><a href="https://www.linkedin.com/in/yewang0811/">Ye Wang</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <div class = "container">
+         <p style="text-align:center;font-size:200%; margin-top: 20px">Stock Option Software</p>
+         <form>
+            <p style="margin-left: 200px; margin-top: 50px">Enter your Stock:</p>
+            <input style = "margin-left: 200px" type="text" placeholder="eg: GOOG" id = "input1"/>
+            <input type="button" class = "btn btn-info" value = "GO!" id = "go2"/>
+            <br>
+         </form>
+         <form style="padding-top: 20px; border-top: dashed blue 1px ">
+            <p style ="margin-left: 200px">Random Generate X numbers of Stocks:</p>
+            <input style ="margin-left: 200px" type="text">
+            <button type="button" class="btn btn-info">Generate!</button>
+            <br>
+         </form>
+         <form style="padding-top: 20px; border-top: dashed blue 1px ">
+            <p style ="margin-left: 200px">Industry List:</p>
+            <select calss = "form-contol" style = "margin-left: 200px" id = "dropdown" multiple>
+               <option value="IT">IT</option>
+               <option value="BANKING">BANKING</option>
+               <option value="SERVICES">SERVICES</option>
+               <option value="OIL">OIL</option>
+               <option value="IT">IT</option>
+               <option value="BANKING">BANKING</option>
+               <option value="SERVICES">SERVICES</option>
+               <option value="OIL">OIL</option>
+            </select>
+            <input type="text" id ="number">
+            <button type="button" class="btn btn-primary" id = "go1"> Check</button>
+         </form>
+         <div style = " border-bottom: dashed blue 1px">
+            <div style="margin-left: 200px; padding-top: 20px;">
+               <textarea id = "text1" style = "width: 300px; height: 100px"></textarea>
+               <button type="button" class="btn btn-info" "> Go!</button>
+            </div>
+         </div>
+      </div>
+      <footer class="container-fluid bg-4 text-center">
+         <p>All Rights Reserved by <a href="https://www.google.com">Cai, Sun and Wang</a></p>
+      </footer>
+   </body>
+   
+
+
+
+
+
+
+   <script type="text/javascript">
+   	
+
+
+      var stock_1, var1, var2;
+      $(document).ready(function(){
+      	stock_1 = $('#input1').val();
+      	$('#go2').click(function (stock_1) {
+    		$.ajax({
+        		type: "POST",
+        		url: "http://10.224.1.192:1337/get_one_ticker.py",
+        		data: { param: stock_1 },
+        		success: callbackFunc
+    		});
+      	});
+		function callbackFunc(response) {
+    // do something with the response
+    		console.log(response);
+		}  	
+
+        $('#go1').click(function(){
+          var1  = $('#dropdown').val(); 
+          var2 = $('#number').val();
+          console.log(var1);
+          if (isNaN(var2)) {
+          	alert("Enter a number")
+          }else {
+          	$('#text1').html("You have selected " + var2 + " stocks of " + var1 + " Industry!");
+          }
+        });
+      
+      
+      });
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   </script>
